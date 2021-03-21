@@ -1,8 +1,17 @@
-
-###
 POST http://localhost:8080/api/user/create
 Content-Type: application/json
 
 {"username":"khalil"}
+
+###
+
+GET http://localhost:8080/api/user/khalil
+
+###
+
+POST http://localhost:8080/api/cart/addToCart
+Content-Type: application/json
+
+{"username":"khalil", "itemId": 1, "quantity": 1}
 
 ###
