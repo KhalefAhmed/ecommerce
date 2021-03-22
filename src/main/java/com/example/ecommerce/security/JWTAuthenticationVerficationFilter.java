@@ -1,4 +1,5 @@
 package com.example.ecommerce.security;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -53,4 +54,5 @@ public class JWTAuthenticationVerficationFilter extends BasicAuthenticationFilte
         }
         return null;
     }
+
 }
