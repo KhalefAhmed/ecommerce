@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.logging.Logger;
-
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -25,7 +23,7 @@ public class UserController {
 	private CartRepository cartRepository;
 
 	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@GetMapping("/id/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
