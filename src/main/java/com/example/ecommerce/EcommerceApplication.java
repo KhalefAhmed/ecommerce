@@ -1,5 +1,6 @@
 package com.example.ecommerce;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -21,5 +22,12 @@ public class EcommerceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EcommerceApplication.class, args);
 	}
+
+	@Bean(name="eCommerceServerUrl")
+	public String eCommerceServerUrl (@Value("${server.hostname:localhost}") String host,
+									  @Value("${server.port:8081}") String port) {
+		return "http://" + host + ":" + port;
+	}
+
 
 }
