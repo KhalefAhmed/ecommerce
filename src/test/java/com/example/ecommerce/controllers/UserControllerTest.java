@@ -8,6 +8,7 @@ import com.example.ecommerce.model.requests.CreateUserRequest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -34,6 +35,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @DisplayName("Create user")
     public void create_user_happy_path() throws Exception{
         when(encoder.encode("testPassword")).thenReturn("thisIsHashed");
 
