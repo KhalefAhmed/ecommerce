@@ -9,4 +9,9 @@ public class ErrorController extends ExceptionInInitializerError{
         logger.error(LogMF.format("handlePasswordValidationException", ex.getLocalizedMessage(), ex));
         return handleExceptionMessageOnly(ex, request);
     }
+
+    public final ResponseEntity<Object> handleUsernameExistsException(UsernameExistsException ex, WebRequest request) {
+        logger.error(LogMF.format("handleUsernameExistsException", ex.getLocalizedMessage(), ex));
+        return handleExceptionMessageOnly(ex, request);
+    }
 }
