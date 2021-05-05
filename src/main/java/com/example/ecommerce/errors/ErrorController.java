@@ -19,4 +19,9 @@ public class ErrorController extends ExceptionInInitializerError{
         logger.error(LogMF.format("handleUsernameNotFoundException", ex.getLocalizedMessage(), ex));
         return handleExceptionMessageOnly(ex, request);
     }
-}
+
+    public final ResponseEntity<Object> handleInvalidUserIdException(InvalidUserIdException ex, WebRequest request) {
+        logger.error(LogMF.format("handleInvalidUserIdException", ex.getLocalizedMessage(), ex));
+        return handleExceptionMessageOnly(ex, request);
+
+    }
