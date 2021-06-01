@@ -65,4 +65,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         logger.info(LogMF.format("successfulAuthentication", "Login/Token Creation succeeded for user " + username + "."));
 
     }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                              AuthenticationException failed) throws IOException, ServletException {
+        logger.info(LogMF.format("unsuccessfulAuthentication", "Incorrect login credentials.  Login failed.", failed));
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+    }
 }
