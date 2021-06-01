@@ -1,33 +1,33 @@
-POST http://localhost:8080/api/user/create
+POST http://localhost:8081/api/user/create
 Content-Type: application/json
 
 { "username":"ahmed",
-"password": "abcdefgh",
-"confirmPassword": "abcdefgh"
+"password": "84Ttdpnend#",
+"confirmPassword": "84Ttdpnend#"
 }
 
 ###
 
-GET http://localhost:8080/api/user/khalil
+GET http://localhost:8081/api/user/khalil
 
 ###
 
-POST http://localhost:8080/api/cart/addToCart
+POST http://localhost:8081/api/cart/addToCart
 Content-Type: application/json
 
 {"username":"khalil", "itemId": 1, "quantity": 1}
 
 ###
 
-POST http://localhost:8080/api/order/submit/khalil
+POST http://localhost:8081/api/order/submit/khalil
 
 ###
 
-GET http://localhost:8080/api/order/history/khalil
+GET http://localhost:8081/api/order/history/khalil
 
 ###
 
-GET http://localhost:8080/api/item/1
+GET http://localhost:8081/api/item/1
 
 ###
-GET http://localhost:8080/api/item/name/Round Widget
+GET http://localhost:8081/api/item/name/Round Widget

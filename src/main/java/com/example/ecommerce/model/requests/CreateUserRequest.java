@@ -3,7 +3,6 @@ package com.example.ecommerce.model.requests;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Positive;
 
 public class CreateUserRequest {
 
@@ -11,16 +10,20 @@ public class CreateUserRequest {
 	@JsonProperty
 	private String username;
 
-	@NotEmpty(message = "itemId must not be null or blank.")
-	@Positive(message = "itemId must be greater than 0")
+	@NotEmpty(message = "password must not be null or blank.")
 	@JsonProperty
 	private String password;
 
-	@NotEmpty(message = "quantity must not be null or blank.")
-	@Positive(message = "quantity must be greater than 0")
+	@NotEmpty(message = "confirmPassword must not be null or blank.")
 	@JsonProperty
 	private String confirmPassword;
 
+	@Override
+	public String toString() {
+		return "CreateUserRequest{" +
+				"username='" + username + '\'' +
+				'}';
+	}
 
 	public String getUsername() {
 		return username;

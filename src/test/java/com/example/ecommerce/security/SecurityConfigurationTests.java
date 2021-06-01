@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -52,6 +53,9 @@ public class SecurityConfigurationTests {
     @Autowired
     UserController userController;
 
+    @LocalServerPort
+    protected int port;
+
     @Before
     public void setup() {
         mvc = MockMvcBuilders
@@ -71,7 +75,7 @@ public class SecurityConfigurationTests {
         LoginRequest loginRequest = new LoginRequest();
         BeanUtils.copyProperties(userRequest, loginRequest);
 
-        mvc.perform(post(new URI("/api/user/create"))
+        mvc.perform(post(new URI("http://localhost:" + this.port +"/api/user/create"))
                 .content(createJson.write(userRequest).getJson())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
