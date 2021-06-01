@@ -14,6 +14,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -115,6 +118,23 @@ public class UserControllerTest {
         Assert.assertEquals("test",user.getUsername());
         Assert.assertEquals("thisIsHashed",user.getPassword());
 
+    }
+
+    @Test
+    @DisplayName("Get all users")
+    public void get_all_users() throws Exception {
+        String username = "test";
+        String password = "passwordIsLong";
+
+        when(userRepository.findAll()).thenReturn(Collections.emptyList());
+
+        CreateUserRequest request = new CreateUserRequest();
+        request.setUsername(username);
+        request.setPassword(password);
+        request.setConfirmPassword(password);
+
+        ResponseEntity<List<User>> response = userController.listUsers();
+        assertEquals(200, response.getStatusCodeValue());
     }
 
 

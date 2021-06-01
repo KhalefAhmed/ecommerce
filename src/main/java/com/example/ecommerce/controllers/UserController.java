@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -94,6 +95,12 @@ public class UserController {
 		userRepository.save(user);
 		log.debug(LogMF.format("createUser","User created successfully.", user));
 		return ResponseEntity.ok(user);
+	}
+
+	@GetMapping("/list")
+	public ResponseEntity<List<User>> listUsers() {
+		log.debug(LogMF.format("findByUserName","Fetching the user list."));
+		return ResponseEntity.ok(userRepository.findAll());
 	}
 	
 }
