@@ -50,6 +50,19 @@ public class UserControllerTest {
     }
 
     @Test
+    @DisplayName("Confirming password does not match the password")
+    public void create_user_confirm_password_not_matching_password() {
+        String username = "test";
+        String password = "Long7$Enough";
+        String confirmPassword = "oops!";
+        CreateUserRequest request = new CreateUserRequest();
+        request.setUsername(username);
+        request.setPassword(password);
+        request.setConfirmPassword(confirmPassword);
+        Assertions.assertThrows(PasswordValidationException.class, () -> { userController.createUser(request); });
+    }
+
+    @Test
     @DisplayName("Create user")
     public void create_user_happy_path() throws Exception{
         when(encoder.encode("testPassword")).thenReturn("thisIsHashed");
