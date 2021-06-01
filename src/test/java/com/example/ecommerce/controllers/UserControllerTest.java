@@ -2,6 +2,7 @@ package com.example.ecommerce.controllers;
 
 import com.example.ecommerce.TestUtils;
 import com.example.ecommerce.exception.PasswordValidationException;
+import com.example.ecommerce.exception.UsernameNotFoundException;
 import com.example.ecommerce.model.persistence.User;
 import com.example.ecommerce.model.persistence.repositories.CartRepository;
 import com.example.ecommerce.model.persistence.repositories.UserRepository;
@@ -99,12 +100,12 @@ public class UserControllerTest {
     @Test
     @DisplayName("Create user")
     public void create_user_happy_path() throws Exception{
-        when(encoder.encode("testPassword")).thenReturn("thisIsHashed");
+        when(encoder.encode("testPassword1!")).thenReturn("thisIsHashed");
 
         CreateUserRequest request = new CreateUserRequest();
         request.setUsername("test");
-        request.setPassword("testPassword");
-        request.setConfirmPassword("testPassword");
+        request.setPassword("testPassword1!");
+        request.setConfirmPassword("testPassword1!");
 
         final ResponseEntity<User> response = userController.createUser(request);
 
@@ -153,6 +154,23 @@ public class UserControllerTest {
 
         ResponseEntity<User> response = userController.findByUserName(username);
         assertEquals(200, response.getStatusCodeValue());
+    }
+
+    @Test
+    @DisplayName("Username does not exist")
+    public void username_does_not_exist() throws Exception {
+        String username = "test";
+        String password = "passwordIsLong";
+        User user1 = new User();
+
+        when(userRepository.findByUsername(username)).thenReturn(null);
+
+        CreateUserRequest request = new CreateUserRequest();
+        request.setUsername(username);
+        request.setPassword(password);
+        request.setConfirmPassword(password);
+
+        Assertions.assertThrows(UsernameNotFoundException.class, () -> { userController.findByUserName(username); });
     }
 
 
