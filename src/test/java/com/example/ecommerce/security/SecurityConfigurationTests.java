@@ -75,7 +75,7 @@ public class SecurityConfigurationTests {
         LoginRequest loginRequest = new LoginRequest();
         BeanUtils.copyProperties(userRequest, loginRequest);
 
-        mvc.perform(post(new URI("http://localhost:" + this.port +"/api/user/create"))
+        mvc.perform(post(new URI("/api/user/create"))
                 .content(createJson.write(userRequest).getJson())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
