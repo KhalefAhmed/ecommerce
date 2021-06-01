@@ -1,5 +1,7 @@
 package com.example.ecommerce;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,9 +15,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EntityScan("com.example.ecommerce.model.persistence")
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class EcommerceApplication {
+	private static final Logger logger = LoggerFactory.getLogger(EcommerceApplication.class);
 
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+
+		logger.debug("Bean " + BCryptPasswordEncoder.class.getName() + " loading into the application context.");
 		return new BCryptPasswordEncoder();
 	}
 
