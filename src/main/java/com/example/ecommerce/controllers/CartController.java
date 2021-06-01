@@ -59,21 +59,27 @@ public class CartController {
 		log.debug(LogMF.format("addToCart", "Success: item(s) added.", item.get()));
 		return ResponseEntity.ok(cart);
 	}
-	
+
 	@PostMapping("/removeFromCart")
-	public ResponseEntity<Cart> removeFromcart(@RequestBody ModifyCartRequest request) {
+	public ResponseEntity<Cart> removeFromCart(@RequestBody ModifyCartRequest request) {
+		log.debug(LogMF.format("removeFromCart", "Removing item(s) to cart.", request));
 		User user = userRepository.findByUsername(request.getUsername());
 		if(user == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			log.debug(LogMF.format("removeFromCart", "Invalid user id.", request));
+			throw new UsernameNotFoundException("User '" + request.getUsername()+ "' does not exist.");
 		}
 		Optional<Item> item = itemRepository.findById(request.getItemId());
 		if(!item.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			log.debug(LogMF.format("removeFromCart", "Invalid item id.", request));
+			throw new ItemNotFoundException("Item id '" + request.getItemId() +"' does not exist.");
 		}
 		Cart cart = user.getCart();
-		IntStream.range(0, request.getQuantity())
-			.forEach(i -> cart.removeItem(item.get()));
+		// don't remove more items than are in the cart.
+		int qty = (request.getQuantity() <= cart.getItems().size()) ? request.getQuantity() : cart.getItems().size();
+		IntStream.range(0, qty)
+				.forEach(i -> cart.removeItem(item.get()));
 		cartRepository.save(cart);
+		log.debug(LogMF.format("removeFromCart", "Success: item(s) removed.", item.get()));
 		return ResponseEntity.ok(cart);
 	}
 		
