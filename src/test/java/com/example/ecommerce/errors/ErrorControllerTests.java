@@ -1,5 +1,6 @@
 package com.example.ecommerce.errors;
 
+
 import com.example.ecommerce.model.requests.CreateUserRequest;
 import com.example.ecommerce.security.LoginRequest;
 import org.junit.Before;
@@ -54,6 +55,7 @@ public class ErrorControllerTests {
                 .webAppContextSetup(context)
                 .apply(springSecurity())
                 .build();
+
         CreateUserRequest userRequest = new CreateUserRequest();
         userRequest.setUsername("BestUserEver");
         userRequest.setPassword("123!@#ASAasa");

@@ -1,10 +1,10 @@
 package com.example.ecommerce.security;
 
 import com.auth0.jwt.JWT;
+
 import com.example.ecommerce.controllers.UserController;
 import com.example.ecommerce.model.persistence.User;
 import com.example.ecommerce.model.requests.CreateUserRequest;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -24,6 +23,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.net.URI;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -52,9 +52,6 @@ public class SecurityConfigurationTests {
 
     @Autowired
     UserController userController;
-
-    @LocalServerPort
-    protected int port;
 
     @Before
     public void setup() {
@@ -94,7 +91,7 @@ public class SecurityConfigurationTests {
                 .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
                 .getSubject();
 
-       Assert.assertEquals(userRequest.getUsername(), user);
+        assertEquals(userRequest.getUsername(), user);
 
     }
 
@@ -132,7 +129,7 @@ public class SecurityConfigurationTests {
         userRequest.setPassword("&*(ASDasnd323");
         userRequest.setConfirmPassword("&*(ASDasnd323");
 
-       LoginRequest loginRequest = new LoginRequest();
+        LoginRequest loginRequest = new LoginRequest();
         BeanUtils.copyProperties(userRequest, loginRequest);
 
         mvc.perform(post(new URI("/api/user/create"))
@@ -188,7 +185,7 @@ public class SecurityConfigurationTests {
                         .getContentAsString();
 
         User user = userJson.parse(responseContent).getObject();
-        Assert.assertEquals(userRequest.getUsername(), user.getUsername());
+        assertEquals(userRequest.getUsername(), user.getUsername());
     }
 
     @Test

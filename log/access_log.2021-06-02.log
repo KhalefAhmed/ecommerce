@@ -1,3 +1,4 @@
 127.0.0.1 - - [02/Jun/2021:00:16:47 +0200] "POST /api/user/create HTTP/1.1" 500 303
 127.0.0.1 - - [02/Jun/2021:00:18:43 +0200] "POST /api/user/create HTTP/1.1" 200 38
 127.0.0.1 - - [02/Jun/2021:00:19:07 +0200] "GET /api/user/khalil HTTP/1.1" 403 140
+127.0.0.1 - - [02/Jun/2021:01:06:46 +0200] "POST /api/user/create HTTP/1.1" 200 38
