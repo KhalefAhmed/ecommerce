@@ -137,5 +137,23 @@ public class UserControllerTest {
         assertEquals(200, response.getStatusCodeValue());
     }
 
+    @Test
+    @DisplayName("Get user by username")
+    public void get_user_by_username_happy_path() throws Exception {
+        String username = "test";
+        String password = "passwordIsLong";
+        User user1 = new User();
+
+        when(userRepository.findByUsername(username)).thenReturn(user1);
+
+        CreateUserRequest request = new CreateUserRequest();
+        request.setUsername(username);
+        request.setPassword(password);
+        request.setConfirmPassword(password);
+
+        ResponseEntity<User> response = userController.findByUserName(username);
+        assertEquals(200, response.getStatusCodeValue());
+    }
+
 
 }
