@@ -1,6 +1,7 @@
 package com.example.ecommerce.controllers;
 
 import com.example.ecommerce.TestUtils;
+import com.example.ecommerce.exception.PasswordValidationException;
 import com.example.ecommerce.model.persistence.User;
 import com.example.ecommerce.model.persistence.repositories.CartRepository;
 import com.example.ecommerce.model.persistence.repositories.UserRepository;
@@ -8,10 +9,10 @@ import com.example.ecommerce.model.requests.CreateUserRequest;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -23,6 +24,7 @@ public class UserControllerTest {
 
     private CartRepository cartRepository = mock(CartRepository.class);
 
+
     private BCryptPasswordEncoder encoder = mock(BCryptPasswordEncoder.class);
 
 
@@ -32,6 +34,19 @@ public class UserControllerTest {
         TestUtils.injectObjects(userController, "userRepository",userRepository);
         TestUtils.injectObjects(userController, "cartRepository",cartRepository);
         TestUtils.injectObjects(userController, "bCryptPasswordEncoder",encoder);
+    }
+
+    @Test
+    @DisplayName("User password is too short")
+    public void create_user_short_password() {
+        String username = "test";
+        String password = "o@0Ps";
+        String confirmPassword = "confirm";
+        CreateUserRequest request = new CreateUserRequest();
+        request.setUsername(username);
+        request.setPassword(password);
+        request.setConfirmPassword(password);
+        Assertions.assertThrows(PasswordValidationException.class, () -> { userController.createUser(request); });
     }
 
     @Test
@@ -57,8 +72,6 @@ public class UserControllerTest {
         Assert.assertEquals("thisIsHashed",user.getPassword());
 
     }
-
-
 
 
 }
