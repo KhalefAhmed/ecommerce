@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -46,6 +48,35 @@ public class UserControllerTest {
         request.setUsername(username);
         request.setPassword(password);
         request.setConfirmPassword(password);
+        Assertions.assertThrows(PasswordValidationException.class, () -> { userController.createUser(request); });
+    }
+
+    @Test
+    @DisplayName("Confirm password is valid")
+    public void create_user_confirm_password_passes_validity() {
+        // Minimum 10 Character Password with lowercase, uppercase letters, digits, a minimum of 4 lowercase letters and minimum of 2 uppercase letters
+        String username = "passtest";
+        String password = "ValidEno*ugh123";
+        String confirmPassword = "ValidEno*ugh123";
+        CreateUserRequest request = new CreateUserRequest();
+        request.setUsername(username);
+        request.setPassword(password);
+        request.setConfirmPassword(confirmPassword);
+        ResponseEntity<User> response = userController.createUser(request);
+        assertEquals(200, response.getStatusCodeValue());
+    }
+
+    @Test
+    @DisplayName("Confirm password is not valid")
+    public void create_user_confirm_password_not_valid() {
+        // Minimum 10 Character Password with lowercase, uppercase letters, digits, a minimum of 4 lowercase letters and minimum of 2 uppercase letters
+        String username = "badpasstest";
+        String password = "validenough3";
+        String confirmPassword = "validenough3";
+        CreateUserRequest request = new CreateUserRequest();
+        request.setUsername(username);
+        request.setPassword(password);
+        request.setConfirmPassword(confirmPassword);
         Assertions.assertThrows(PasswordValidationException.class, () -> { userController.createUser(request); });
     }
 
