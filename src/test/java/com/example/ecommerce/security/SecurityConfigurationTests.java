@@ -87,8 +87,8 @@ public class SecurityConfigurationTests {
                 .getResponse()
                 .getHeader("Authorization");
 
-        String user = JWT.require(HMAC512(SecurityConstants.SECRET.getBytes())).build()
-                .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
+        String user = JWT.require(HMAC512(com.example.ecommerce.security.SecurityConstants.SECRET.getBytes())).build()
+                .verify(token.replace(com.example.ecommerce.security.SecurityConstants.TOKEN_PREFIX, ""))
                 .getSubject();
 
         assertEquals(userRequest.getUsername(), user);

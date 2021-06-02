@@ -17,6 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/item")
 public class ItemController {
+
 	private static final Logger log = LoggerFactory.getLogger(ItemController.class);
 
 	@Autowired
@@ -26,7 +27,7 @@ public class ItemController {
 	public ResponseEntity<List<Item>> getItems() {
 		return ResponseEntity.ok(itemRepository.findAll());
 	}
-
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<Item> getItemById(@PathVariable Long id) {
 		log.debug(LogMF.format("getItemById", "Attempting to find item by id.", "Id", id.toString()));
@@ -38,7 +39,7 @@ public class ItemController {
 		log.debug(LogMF.format("getItemById", "Success: item found.", item.get()));
 		return ResponseEntity.ok(item.get());
 	}
-
+	
 	@GetMapping("/name")
 	public ResponseEntity<List<Item>> getItemsByName(@RequestParam String name) {
 		log.debug(LogMF.format("getItemByName", "Attempting to find item by name.", "Item name", name));

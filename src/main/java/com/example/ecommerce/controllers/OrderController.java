@@ -20,14 +20,14 @@ import java.util.List;
 public class OrderController {
 
 	private static final Logger log = LoggerFactory.getLogger(OrderController.class);
-
+	
 	@Autowired
 	private UserRepository userRepository;
 	
 	@Autowired
 	private OrderRepository orderRepository;
-
-
+	
+	
 	@PostMapping("/submit/{username}")
 	public ResponseEntity<UserOrder> submit(@PathVariable String username) {
 		log.debug(LogMF.format("submit", "Attempting create order.", "username", username));
@@ -42,7 +42,7 @@ public class OrderController {
 		log.debug(LogMF.format("submit", "Success: Order created.", order));
 		return ResponseEntity.ok(order);
 	}
-
+	
 	@GetMapping("/history/{username}")
 	public ResponseEntity<List<UserOrder>> getOrdersForUser(@PathVariable String username) {
 		log.debug(LogMF.format("getOrdersForUser", "Attempting to get order.", "username", username));

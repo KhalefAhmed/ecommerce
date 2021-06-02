@@ -20,7 +20,7 @@ public class SwaggerConfig {
     private String apiTitle = "eCommerce API - Udacity JDND Project 4";
     private String apiDescription = "A simple eCommerce application.";
     private String apiVersion = "0.1";
-    private Contact apiContact = new springfox.documentation.service.Contact("Ahmed KHALEF", "https://github.com/KhalefAhmed", "khalef.ahmedkhalil@gmail.com");
+    private Contact apiContact = new Contact("David Dickinson", "https://github.com/biscaboy", "biscaboy@pm.me");
     private String apiLicense = "The MIT License";
     private String getApiLicenseUri = "/mit-license.html";
     private String apiTermsOfServiceUri = "/tos.html";
@@ -50,5 +50,5 @@ public class SwaggerConfig {
         return info;
     }
 
-
 }
+

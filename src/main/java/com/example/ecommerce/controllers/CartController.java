@@ -14,7 +14,6 @@ import com.example.ecommerce.util.LogMF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +37,7 @@ public class CartController {
 	
 	@Autowired
 	private ItemRepository itemRepository;
-
+	
 	@PostMapping("/addToCart")
 	public ResponseEntity<Cart> addToCart(@RequestBody ModifyCartRequest request) {
 		log.debug(LogMF.format("addToCart", "Adding item(s) to cart.", request));
@@ -54,12 +53,12 @@ public class CartController {
 		}
 		Cart cart = user.getCart();
 		IntStream.range(0, request.getQuantity())
-				.forEach(i -> cart.addItem(item.get()));
+			.forEach(i -> cart.addItem(item.get()));
 		cartRepository.save(cart);
 		log.debug(LogMF.format("addToCart", "Success: item(s) added.", item.get()));
 		return ResponseEntity.ok(cart);
 	}
-
+	
 	@PostMapping("/removeFromCart")
 	public ResponseEntity<Cart> removeFromCart(@RequestBody ModifyCartRequest request) {
 		log.debug(LogMF.format("removeFromCart", "Removing item(s) to cart.", request));
@@ -77,7 +76,7 @@ public class CartController {
 		// don't remove more items than are in the cart.
 		int qty = (request.getQuantity() <= cart.getItems().size()) ? request.getQuantity() : cart.getItems().size();
 		IntStream.range(0, qty)
-				.forEach(i -> cart.removeItem(item.get()));
+			.forEach(i -> cart.removeItem(item.get()));
 		cartRepository.save(cart);
 		log.debug(LogMF.format("removeFromCart", "Success: item(s) removed.", item.get()));
 		return ResponseEntity.ok(cart);

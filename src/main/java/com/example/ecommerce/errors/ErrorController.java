@@ -1,5 +1,6 @@
 package com.example.ecommerce.errors;
 
+
 import com.example.ecommerce.exception.InvalidUserIdException;
 import com.example.ecommerce.exception.PasswordValidationException;
 import com.example.ecommerce.exception.UsernameExistsException;
@@ -16,7 +17,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 /**
  * Implements the Error controller related to any errors handled by the Vehicles API
@@ -55,7 +55,6 @@ public class ErrorController extends ResponseEntityExceptionHandler {
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
     }
 
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
@@ -75,6 +74,4 @@ public class ErrorController extends ResponseEntityExceptionHandler {
                         .collect(Collectors.joining(","))));
         return handleExceptionInternal(ex, apiError, headers, HttpStatus.BAD_REQUEST, request);
     }
-
-
 }

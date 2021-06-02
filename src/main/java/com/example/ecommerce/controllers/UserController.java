@@ -28,7 +28,6 @@ import java.util.Optional;
 @RequestMapping("/api/user")
 public class UserController {
 
-
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 	PasswordValidator validator = PasswordValidatorFactory.create();
 
@@ -51,7 +50,7 @@ public class UserController {
 		}
 		return ResponseEntity.ok(user.get());
 	}
-
+	
 	@GetMapping("/{username}")
 	public ResponseEntity<User> findByUserName(@PathVariable String username) {
 		log.debug(LogMF.format("findByUserName","Attempting to find user.", "username", username));
@@ -63,7 +62,7 @@ public class UserController {
 		log.debug(LogMF.format("findByUserName","Successfully found user.", "username", username));
 		return ResponseEntity.ok(user);
 	}
-
+	
 	@PostMapping("/create")
 	public ResponseEntity<User> createUser(@Valid @RequestBody CreateUserRequest createUserRequest) {
 		log.debug(LogMF.format("createUser","Attempting user create.", createUserRequest));
@@ -102,5 +101,4 @@ public class UserController {
 		log.debug(LogMF.format("findByUserName","Fetching the user list."));
 		return ResponseEntity.ok(userRepository.findAll());
 	}
-	
 }

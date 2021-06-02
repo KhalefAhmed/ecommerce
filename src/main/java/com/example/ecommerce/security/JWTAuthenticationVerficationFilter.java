@@ -1,13 +1,6 @@
 package com.example.ecommerce.security;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.example.ecommerce.util.LogMF;
@@ -17,7 +10,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
-import com.auth0.jwt.JWT;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
@@ -37,7 +35,6 @@ public class JWTAuthenticationVerficationFilter extends BasicAuthenticationFilte
             chain.doFilter(req, res);
             return;
         }
-
         logger.info(LogMF.format("doFilterInternal", "Verifying token presented with request."));
         UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
 
@@ -49,7 +46,6 @@ public class JWTAuthenticationVerficationFilter extends BasicAuthenticationFilte
         String token = req.getHeader(SecurityConstants.HEADER_STRING);
         if (token != null) {
             try {
-
                 String user = JWT.require(HMAC512(SecurityConstants.SECRET.getBytes())).build()
                         .verify(token.replace(SecurityConstants.TOKEN_PREFIX, ""))
                         .getSubject();
