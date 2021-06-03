@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-class EcommerceApplicationTests {
+public class EcommerceApplicationTests {
 
 	@Autowired
 	private WebApplicationContext context;
