@@ -1,6 +1,7 @@
 package com.example.ecommerce.util;
 
 import com.example.ecommerce.model.requests.CreateUserRequest;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,6 +27,15 @@ public class LogMFTests {
         String expected = "method=[myMethod] message=[My Message] " +
                 "object=[com.example.ecommerce.model.requests.CreateUserRequest] " +
                 "password=[***** CONFIDENTIAL *****] confirmPassword=[***** CONFIDENTIAL *****] username=[test]";
+        assertEquals(expected, message);
+    }
+
+    @Test
+    @DisplayName("Format a single message")
+    public void test_format_single_message() {
+        String message = LogMF.format("myMethod", "My Message");
+//        String expectedJson = "{ \"method\" : \"myMethod\", \"message\": \"My Message\" }";
+        String expected = "method=[myMethod] message=[My Message]";
         assertEquals(expected, message);
     }
 }
