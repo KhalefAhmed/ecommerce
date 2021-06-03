@@ -5,6 +5,7 @@ import com.example.ecommerce.model.requests.CreateUserRequest;
 import com.example.ecommerce.security.LoginRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,6 +19,8 @@ import org.springframework.web.context.WebApplicationContext;
 import java.net.URI;
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -62,5 +65,46 @@ class EcommerceApplicationTests {
 				.andExpect(jsonPath("username").isNotEmpty())
 				.andExpect(jsonPath("username").value(userRequest.getUsername()))
 				.andExpect(jsonPath("id").isNotEmpty());
+	}
+
+	@Test
+	public void get_user_list_authorized() throws Exception {
+
+		CreateUserRequest userRequest = new CreateUserRequest();
+		userRequest.setUsername("BullDurham");
+		userRequest.setPassword("*)*JJJjkj2343)");
+		userRequest.setConfirmPassword("*)*JJJjkj2343)");
+
+		LoginRequest loginRequest = new LoginRequest();
+		BeanUtils.copyProperties(userRequest, loginRequest);
+
+		mvc.perform(post(new URI("/api/user/create"))
+				.content(createJson.write(userRequest).getJson())
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.accept(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(status().isOk());
+
+		String token = mvc.perform(post(new URI("/login"))
+				.content(loginJson.write(loginRequest).getJson())
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.accept(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(status().isOk())
+				.andReturn()
+				.getResponse()
+				.getHeader("Authorization");
+
+		String responseContent = mvc.perform(
+				get(new URI("/api/user/list"))
+						.content(createJson.write(userRequest).getJson())
+						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.header("Authorization", token)
+						.accept(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(status().isOk())
+				.andReturn()
+				.getResponse()
+				.getContentAsString();
+
+		ArrayList<User> users = userListJson.parse(responseContent).getObject();
+		assertEquals(userRequest.getUsername(), users.get(users.size() - 1).getUsername());
 	}
 }
