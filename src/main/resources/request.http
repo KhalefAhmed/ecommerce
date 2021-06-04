@@ -1,7 +1,7 @@
 POST http://localhost:8081/api/user/create
 Content-Type: application/json
 
-{ "username":"ahmed",
+{ "username":"khalil",
 "password": "84Ttdpnend#",
 "confirmPassword": "84Ttdpnend#"
 }
