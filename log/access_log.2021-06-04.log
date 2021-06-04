@@ -17,3 +17,8 @@
 0:0:0:0:0:0:0:1 - - [04/Jun/2021:22:59:14 +0200] "GET /webjars/springfox-swagger-ui/fonts/source-code-pro-v7-latin-300.woff2 HTTP/1.1" 200 13292
 0:0:0:0:0:0:0:1 - - [04/Jun/2021:22:59:14 +0200] "GET /webjars/springfox-swagger-ui/fonts/open-sans-v15-latin-regular.woff2 HTTP/1.1" 200 14048
 127.0.0.1 - - [04/Jun/2021:23:00:43 +0200] "POST /api/user/create HTTP/1.1" 200 39
+127.0.0.1 - - [04/Jun/2021:23:24:10 +0200] "POST /api/user/create HTTP/1.1" 200 44
+127.0.0.1 - - [04/Jun/2021:23:25:15 +0200] "POST /api/user/create HTTP/1.1" 200 44
+127.0.0.1 - - [04/Jun/2021:23:29:40 +0200] "POST /api/user/create HTTP/1.1" 400 77
+127.0.0.1 - - [04/Jun/2021:23:47:59 +0200] "POST /api/user/login HTTP/1.1" 403 139
+127.0.0.1 - - [04/Jun/2021:23:48:58 +0200] "POST /login HTTP/1.1" 401 -
