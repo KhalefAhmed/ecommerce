@@ -26,3 +26,4 @@
 127.0.0.1 - - [05/Jun/2021:00:34:15 +0200] "POST /api/order/submit/ahmedkhalef HTTP/1.1" 403 153
 127.0.0.1 - - [05/Jun/2021:00:34:30 +0200] "POST /api/order/submit/ahmedkhalef HTTP/1.1" 200 249
 127.0.0.1 - - [05/Jun/2021:00:35:00 +0200] "POST /api/order/submit/example HTTP/1.1" 400 65
+127.0.0.1 - - [05/Jun/2021:00:53:30 +0200] "POST /api/user/create HTTP/1.1" 400 77
